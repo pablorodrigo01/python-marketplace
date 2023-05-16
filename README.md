@@ -51,7 +51,7 @@ Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](
 
 Se você tiver alguma dúvida, sugestão ou problema relacionado a este projeto, sinta-se à vontade para entrar em contato comigo.
 
-- Autor: Pablo Rodrigo - Prontax
+- Autor: Pablo Rodrigo
 - Email: pablorodrigo210104@hotmail.com
 
 Obrigado por usar o Reman Aplicativo - Marketplace! Espero que seja útil para você atualizar suas tabelas nas plataformas de e-commerce de forma mais eficiente.
