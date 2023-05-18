@@ -27,8 +27,8 @@ No entanto, é possível adicionar suporte a outras plataformas facilmente. Bast
 3. Instale as dependências necessárias executando o seguinte comando no terminal:
 `pip install -r requirements.txt`
 
-4. Execute o script `app.py` com o seguinte comando: 
-`python app.py`
+4. Execute o script `excel.py` com o seguinte comando: 
+`python excel.py`
 
 5. A janela do aplicativo será aberta. Selecione o arquivo de entrada clicando no botão "Procurar".
 6. Clique no botão "Atualizar Arquivo" para iniciar o processo de atualização.
