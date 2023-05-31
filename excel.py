@@ -13,26 +13,30 @@ def update_all():
     file_path = file_input.get()
 
     try:
-        # Lê o arquivo de entrada e extrai as três colunas desejadas
-        df = pd.read_excel(file_path, usecols='B, G, H', skiprows=1)
+        # Lê o arquivo de entrada e extrai as colunas SKU, Nome, Preço e Estoque
+        df = pd.read_excel(file_path, usecols='A, B, C, D', skiprows=1)
+        # Instrução passada para definir todos os itens da coluna "Nome" em uppercase
+        df['Nome'] = df['Nome'].str.upper()
 
         # Configurações das plataformas
-        # Legenda: cn -> Coluna Nome, ce -> Coluna Estoque, cv -> Coluna Valor
+        # Legenda: cn -> Coluna Nome, ce -> Coluna Estoque, cp -> Coluna Preço, file_output -> Nome do arquivo de saída
         platform_configs = [
             {
                 'name': 'Mercado Livre',
                 'sheet': 'Anúncios',
                 'cn': 4,
+                'sku': 3,
                 'ce': 6,
-                'cv': 8,
+                'cp': 8,
                 'file_output': 'file\\MercadoLivre.xlsx'
             },
             {
                 'name': 'Shopee',
                 'sheet': 'Sheet1',
                 'cn': 2,
+                'sku': 5,
                 'ce': 9,
-                'cv': 7,
+                'cp': 7,
                 'file_output': 'file\\Shopee.xlsx'
             },
             {
@@ -40,38 +44,55 @@ def update_all():
                 'sheet': 'Cadastro de Produtos SEM VARIAÇ',
                 'cn': 2,
                 'ce': 4,
-                'cv': 3,
+                'cp': 3,
+                'sku': None,
                 'file_output': 'file\\Magalu.xlsx'
             }
         ]
 
         for config in platform_configs:
             platform = config['name']
-            planilha = config['sheet']
-            cn = config['cn']
-            ce = config['ce']
-            cv = config['cv']
+            sheet_name = config['sheet']
+            cn_col = config['cn']
+            ce_col = config['ce']
+            sku_col = config['sku']
+            cp_col = config['cp']
             file_output = config['file_output']
 
             # Abre o arquivo de destino em modo de leitura
             book = load_workbook(file_output)
 
             # Seleciona a planilha para atualização
-            sheet = book[planilha]
+            sheet = book[sheet_name]
 
             # Itera sobre as linhas do arquivo de entrada
-            for i, row in df.iterrows():
-                nome = row["Nome do produto"]
-                estoque = row["Estoque"]
-                preco = row["Custo"]
+            for _, row in df.iterrows():
+                sku = row['SKU']
+                nome = row['Nome']
+                preco = row['Custo']
+                estoque = row['Estoque']
+
+                if sku_col is not None:
+                    # Procura o SKU correspondente na planilha de destino
+                    for i in range(4, sheet.max_row + 1):
+                        sku_dest = sheet.cell(row=i, column=sku_col).value
+                        if str(sku_dest) == str(sku):
+                            # Atualiza a coluna de Nome na planilha de destino
+                            sheet.cell(row=i, column=cn_col).value = nome
+                            break
 
                 # Procura a linha correspondente na planilha de destino
                 for j in range(4, sheet.max_row + 1):
-                    titulo = sheet.cell(row=j, column=cn).value
+                    titulo = sheet.cell(row=j, column=cn_col).value
                     if titulo == nome:
                         # Atualiza as células correspondentes na planilha de destino
-                        sheet.cell(row=j, column=ce, value=estoque)
-                        sheet.cell(row=j, column=cv, value=preco)
+                        sheet.cell(row=j, column=cp_col).value = estoque
+                        sheet.cell(row=j, column=cp_col).value = preco
+                        
+                        # Atualiza somente a coluna 9 da planilha do Mercado Livre com o valor de preco
+                        if platform == 'Mercado Livre':
+                            sheet.cell(row=j, column=9).value = preco
+                        
                         break
 
             # Salva as alterações no arquivo de destino
