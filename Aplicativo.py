@@ -2,7 +2,32 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import customtkinter as ctk
 import pandas as pd
+import json
+import datetime
 from openpyxl import load_workbook
+
+# Função para ler o arquivo de configuração
+def read_config(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        config = json.load(file)
+    return config
+
+# Função para criar o arquivo log.txt
+def generate_log(platform, sku):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_message = f"[{timestamp}] SKU não encontrado na tabela de entrada - Plataforma: {platform}, SKU: {sku}\n"
+    # log_message = f"{sku}, "
+
+    with open('log.txt', 'a+') as log_file:
+        log_file.seek(0)
+        logs = log_file.read()
+
+        if log_message not in logs:
+            log_file.write(log_message)
+
+# Carrega as configurações do arquivo
+config = read_config('config.json')
+platform_configs = config['platforms']
 
 # Função para fechar a janela corretamente
 def close():
@@ -15,51 +40,10 @@ def update_all():
     try:
         # Lê o arquivo de entrada e extrai as colunas SKU, Nome, Preço e Estoque
         df = pd.read_excel(file_path, usecols='A, B, C, D', skiprows=1)
-        # Instrução passada para definir todos os itens da coluna "Nome" em uppercase
         df['Nome'] = df['Nome'].str.upper()
 
-        # Configurações das plataformas
-        # Legenda: cn -> Coluna Nome, ce -> Coluna Estoque, cp -> Coluna Preço, file_output -> Nome do arquivo de saída
-        #F3F3F3
-        #F9F9F9
-        platform_configs = [
-            {
-                'name': 'Mercado Livre',
-                'sheet': 'Anúncios',
-                'cn': 4,
-                'sku': 3,
-                'ce': 6,
-                'cp': 8,
-                'file_output': 'file\\MercadoLivre.xlsx'
-            },
-            {
-                'name': 'Shopee',
-                'sheet': 'Sheet1',
-                'cn': 2,
-                'sku': 5,
-                'ce': 9,
-                'cp': 7,
-                'file_output': 'file\\Shopee.xlsx'
-            },
-            {
-                'name': 'Magalu',
-                'sheet': 'Cadastro de Produtos SEM VARIAÇ',
-                'cn': 2,
-                'ce': 4,
-                'cp': 3,
-                'sku': None,
-                'file_output': 'file\\Magalu.xlsx'
-            },
-            {
-                'name': 'Via',
-                'sheet': 'PRECO_ESTOQUE_STATUS_PREPARO',
-                'ce': 4,
-                'cp': 2,
-                'sku': 1,
-                'cn': None,
-                'file_output': 'file\\Via.xlsx'
-            }
-        ]
+        # Lista para armazenar os SKUs da tabela de entrada
+        input_skus = df['Codigo'].tolist()
 
         for config in platform_configs:
             platform = config['name']
@@ -72,47 +56,53 @@ def update_all():
 
             # Abre o arquivo de destino em modo de leitura
             book = load_workbook(file_output)
-
-            # Seleciona a planilha para atualização
             sheet = book[sheet_name]
 
-            # Itera sobre as linhas do arquivo de entrada
+            # Lista para armazenar os SKUs da plataforma
+            platform_skus = []
+
+            if platform != 'Magalu':
+                for i in range(4, sheet.max_row + 1):
+                    sku_dest = sheet.cell(row=i, column=sku_col).value
+                    platform_skus.append(sku_dest)
+
+                # Comparar os SKUs da plataforma com os da tabela de entrada
+                skus_not_in_input = [sku for sku in platform_skus if sku is not None and sku not in input_skus]
+
+            if platform != 'Magalu':
+                # Imprimir os SKUs que não estão na tabela de entrada
+                for sku in skus_not_in_input:
+                    generate_log(platform, sku)
+
             for _, row in df.iterrows():
                 sku = row['Codigo']
                 nome = row['Nome']
                 preco = row['Custo']
                 estoque = row['Estoque']
 
-                if platform == ('Mercado Livre' or 'Shopee'):
-                    # Procura o SKU correspondente na planilha de destino
+                if platform == 'Mercado Livre' or platform == 'Shopee':
                     for i in range(4, sheet.max_row + 1):
                         sku_dest = sheet.cell(row=i, column=sku_col).value
                         if sku_dest == sku:
-                            # Atualiza a coluna de Nome na planilha de destino
-                            sheet.cell(row=i, column=cn_col).value = nome
-                            # Atualiza somente a coluna 9 da planilha do Mercado Livre com o valor de preco
-                            if platform == 'Mercado Livre':
-                                sheet.cell(row=i, column=9).value = preco                            
-                            break
+                            titulo = sheet.cell(row=i, column=cn_col).value
+                            if titulo == nome:
+                                sheet.cell(row=i, column=ce_col).value = estoque
+                                sheet.cell(row=i, column=cp_col).value = preco
+                                if platform == 'Mercado Livre':
+                                    sheet.cell(row=i, column=9).value = preco                     
 
                 if platform == 'Via':
                     for i in range(4, sheet.max_row + 1):
                         sku_dest = sheet.cell(row=i, column=sku_col).value
                         if sku_dest == sku:
-                            # Atualiza a coluna de Nome na planilha de destino
                             sheet.cell(row=i, column=ce_col).value = estoque
                             sheet.cell(row=i, column=cp_col).value = preco
-                            # Atualiza somente a coluna 3 da planilha do Mercado Livre com o valor de preco
-                            if platform == 'Via':
-                                sheet.cell(row=i, column=3).value = preco                            
-                            break
+                            sheet.cell(row=i, column=3).value = preco
 
                 if platform == 'Magalu':
-                    # Procura a linha correspondente na planilha de destino
                     for j in range(4, sheet.max_row + 1):
                         titulo = sheet.cell(row=j, column=cn_col).value
                         if titulo == nome:
-                            # Atualiza as células correspondentes na planilha de destino
                             sheet.cell(row=j, column=ce_col).value = estoque
                             sheet.cell(row=j, column=cp_col).value = preco
 

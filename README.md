@@ -12,23 +12,31 @@ O aplicativo suporta as seguintes plataformas atualmente:
 - Mercado Livre
 - Shopee
 - Magalu
+- Via Marketplace (Casas Bahia, Pontofrio e Extra)
 
-No entanto, é possível adicionar suporte a outras plataformas facilmente. Basta adicionar uma nova configuração para a plataforma desejada na função `update_all()` no código-fonte. A configuração deve incluir o nome da plataforma, o nome da planilha, as colunas correspondentes ao nome do produto, estoque e preço, e o caminho do arquivo de saída da plataforma.
+No entanto, é possível adicionar suporte a outras plataformas facilmente. Agora, a configuração das plataformas é feita no arquivo config.json. No arquivo config.json, você pode adicionar uma nova configuração para a plataforma desejada, incluindo o nome da plataforma, o nome da planilha, as colunas correspondentes ao nome do produto, estoque e preço, e o caminho do arquivo de saída da plataforma. Dessa forma, você pode estender facilmente o suporte a novas plataformas sem precisar modificar diretamente o código-fonte.
+
+## Planejamento de Melhoras
+
+- [x] Sistema de Log
+- [x] Configuração para outras lojas
+- [ ] Implementação do Selenium
+- [ ] Versão Web
+
+## Melhorias Recentes
+
+### 1.1 - 07/06/2023
+- Adicionado sistema de log para mostrar produtos que não foram atualizados corretamente.
+- A configuração das lojas agora é feita por meio de arquivos .json, proporcionando uma maneira mais flexível e fácil de adicionar novas plataformas.
+
+![Exemplo do arquivo de log](https://i.imgur.com/7yX76c0.png)
+
+Essas são apenas algumas das melhorias recentes feitas no projeto. Continuamos trabalhando para aprimorar o aplicativo e fornecer uma experiência cada vez melhor aos usuários.
 
 ## Requisitos
 
 - Python 3.x
 - Bibliotecas: tkinter, pandas, openpyxl
-
-## Como usar - Executável
-
-1. Certifique-se de ter um programa de descompactação, como o WinRAR, instalado em seu sistema.
-2. Localize o arquivo .rar do aplicativo no seu sistema.
-3. Clique com o botão direito no arquivo .rar e selecione a opção para extrair os arquivos.
-4. Escolha um local para extrair os arquivos do aplicativo.
-5. Após a extração, abra a pasta onde os arquivos do aplicativo foram extraídos.
-6. Procure o arquivo executável do aplicativo, que pode ter extensão .exe.
-7. Execute o arquivo executável do aplicativo clicando duas vezes nele.
 
 ## Como usar - Código fonte
 
@@ -49,7 +57,7 @@ Contribuições para este projeto são bem-vindas. Se você deseja adicionar sup
 
 ## Aviso
 
-Este aplicativo foi desenvolvido com o propósito de facilitar a atualização de tabelas em plataformas de e-commerce. Certifique-se de ter permissão adequada para atualizar as tabelas nas plataformas desejadas e esteja ciente das implicações de atualizar grandes volumes de dados em plataformas ao vivo.
+>Este aplicativo foi desenvolvido com o propósito de facilitar a atualização de tabelas em plataformas de e-commerce. Certifique-se de ter permissão adequada para atualizar as tabelas nas plataformas desejadas e esteja ciente das implicações de atualizar grandes volumes de dados em plataformas ao vivo.
 
 ## Licença
 

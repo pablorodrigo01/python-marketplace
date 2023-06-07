@@ -1,0 +1,7 @@
+[2023-06-07 08:28:56] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 92/2539
+[2023-06-07 08:28:56] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 119
+[2023-06-07 08:28:57] SKU não encontrado na tabela de entrada - Plataforma: Shopee, SKU: 767
+[2023-06-07 08:28:57] SKU não encontrado na tabela de entrada - Plataforma: Shopee, SKU: 1398
+[2023-06-07 08:29:00] SKU não encontrado na tabela de entrada - Plataforma: Via, SKU: 1250
+[2023-06-07 08:29:00] SKU não encontrado na tabela de entrada - Plataforma: Via, SKU: 2096
+[2023-06-07 08:29:00] SKU não encontrado na tabela de entrada - Plataforma: Via, SKU: 2006
