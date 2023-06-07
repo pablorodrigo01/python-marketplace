@@ -18,7 +18,7 @@ def generate_log(platform, sku):
     log_message = f"[{timestamp}] SKU não encontrado na tabela de entrada - Plataforma: {platform}, SKU: {sku}\n"
     # log_message = f"{sku}, "
 
-    with open('log.txt', 'a+') as log_file:
+    with open('log.txt', 'a+', encoding='utf-8') as log_file:
         log_file.seek(0)
         logs = log_file.read()
 
