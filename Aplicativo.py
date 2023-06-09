@@ -4,7 +4,16 @@ import customtkinter as ctk
 import pandas as pd
 import json
 import datetime
+import subprocess
 from openpyxl import load_workbook
+
+# Função para chamar o arquivo web.py
+def download():
+    try:
+        subprocess.call(["python", "web.py"])
+    except Exception as e:
+        # Mostra uma mensagem de erro
+        messagebox.showerror("Erro", str(e))
 
 # Função para ler o arquivo de configuração
 def read_config(file_path):
@@ -84,6 +93,7 @@ def update_all():
                     for i in range(4, sheet.max_row + 1):
                         sku_dest = sheet.cell(row=i, column=sku_col).value
                         if sku_dest == sku:
+                            sheet.cell(row=i, column=cn_col).value = nome
                             titulo = sheet.cell(row=i, column=cn_col).value
                             if titulo == nome:
                                 sheet.cell(row=i, column=ce_col).value = estoque
@@ -157,12 +167,16 @@ file_input_frame.grid(row=2, column=1, padx=10, pady=10)
 file_input = ctk.CTkEntry(file_input_frame, width=200, font=("Myriad Pro", 16))
 file_input.grid(row=0, column=0)
 
-browse_input_button = ctk.CTkButton(file_input_frame, text="Procurar", font=("Myriad Pro", 16), command=lambda: file_input.insert(tk.END, filedialog.askopenfilename()))
+browse_input_button = ctk.CTkButton(file_input_frame, text="Procurar", font=("Myriad Pro", 16), command=lambda: [file_input.delete(0, tk.END), file_input.insert(tk.END, filedialog.askopenfilename())])
 browse_input_button.grid(row=0, column=1, padx=10)
 
 # Botão para atualizar o arquivo em todas as plataformas
 update_button = ctk.CTkButton(content_frame, text="Atualizar Arquivo", font=("Myriad Pro", 16), command=update_all)
 update_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+# Botão para download da planilha
+download_planilha_button = ctk.CTkButton(content_frame, text="Download Planilha", font=("Myriad Pro", 16), command=download)
+download_planilha_button.grid(row=6, column=0, columnspan=2, pady=10)
 
 # Inicia o loop principal da interface gráfica
 app.mainloop()

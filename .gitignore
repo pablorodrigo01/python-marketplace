@@ -127,6 +127,7 @@ venv.bak/
 output/
 file/
 env/
+download/
 
 # mypy
 .mypy_cache/
