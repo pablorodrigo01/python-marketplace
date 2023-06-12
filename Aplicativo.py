@@ -94,7 +94,7 @@ def update_all():
                         sku_dest = sheet.cell(row=i, column=sku_col).value
                         if sku_dest == sku:
                             sheet.cell(row=i, column=cn_col).value = nome
-                            titulo = sheet.cell(row=i, column=cn_col).value
+                            titulo = sheet.cell(row=i, column=cn_col ).value
                             if titulo == nome:
                                 sheet.cell(row=i, column=ce_col).value = estoque
                                 sheet.cell(row=i, column=cp_col).value = preco

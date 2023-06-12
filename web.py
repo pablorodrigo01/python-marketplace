@@ -9,12 +9,12 @@ import os
 USERNAME = os.getlogin()
 
 # Caminho para o Chromedriver
-selenium_service = Service('C:\\Users\\{USERNAME}\\Downloads\\drive')
+selenium_service = Service('file\\chromedriver.exe')
 
 # Opções do Chrome
 options = Options()
 options.add_experimental_option("detach", True)
-prefs = {"download.default_directory" : "C:\\Users\\{USERNAME}\\Downloads\\Teste\\download"}
+prefs = {"download.default_directory" : "file\\download"}
 options.add_experimental_option("prefs", prefs)
 options.add_argument(f"--user-data-dir=C:\\Users\\{USERNAME}\\AppData\\Local\\Google\\Chrome\\User Data")
 
@@ -31,7 +31,7 @@ driver.find_element(By.XPATH, "/html/body/main/section/section/div[1]/div/div").
 # Seleciona opção de SKU
 driver.find_element(By.XPATH, "/html/body/main/section/section/div[1]/div/div[2]/div[2]/div[11]/label/span").click()
 
-# driver.implicitly_wait(10)
+driver.implicitly_wait(10)
 
 # Clica para expandir para maior opções
 driver.find_element(By.XPATH, "/html/body/main/section/section/div[2]/div/div[1]").click()
@@ -97,14 +97,20 @@ driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div/div/div/form/div[2]
 driver.find_element(By.CSS_SELECTOR, "#kc-login")
 driver.find_element(By.CSS_SELECTOR, "#kc-login").click()
 
+# Clica para expandir a barra lateral
 driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div[1]/header/div/button[1]").click()
 
+# Clica na seção de Produtos
 driver.find_element(By.XPATH, "/html/body/div[4]/div[3]/nav/div[6]/div[2]/span").click()
 
+# Clica na opção Importação de Produtos
 driver.find_element(By.XPATH, "/html/body/div[4]/div[3]/nav/div[7]/div/div/div/div[1]/div").click()
 
+# Clica na opção Selecionar todos
 driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div[4]/div/label/span[1]/span[1]/input").click()
 
+# Clica na opção de Ações massivas
 driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div[4]/div/div/button").click()
 
+# Clica na opção Exportar
 # driver.find_element(By.XPATH, "/html/body/div[4]/div[3]/div/div/p[3]").click()
