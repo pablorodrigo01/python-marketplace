@@ -1,40 +1,31 @@
 {
-    "platforms": [
-      {
-        "name": "Mercado Livre",
-        "sheet": "Anúncios",
-        "cn": 4,
-        "sku": 3,
-        "ce": 6,
-        "cp": 8,
-        "file_output": "file\\MercadoLivre.xlsx"
-      },
-      {
-        "name": "Shopee",
-        "sheet": "Sheet1",
-        "cn": 2,
-        "sku": 5,
-        "ce": 9,
-        "cp": 7,
-        "file_output": "file\\Shopee.xlsx"
-      },
-      {
-        "name": "Magalu",
-        "sheet": "Cadastro de Produtos SEM VARIAÇ",
-        "cn": 2,
-        "ce": 4,
-        "cp": 3,
-        "sku": null,
-        "file_output": "file\\Magalu.xlsx"
-      },
-      {
-        "name": "Via",
-        "sheet": "PRECO_ESTOQUE_STATUS_PREPARO",
-        "ce": 4,
-        "cp": 2,
-        "sku": 1,
-        "cn": null,
-        "file_output": "file\\Via.xlsx"
-      }
-    ]
-  }
+  "platforms": [
+    {
+      "name": "Mercado Livre",
+      "sheet": "Anúncios",
+      "cn": 4,
+      "sku": 3,
+      "ce": 6,
+      "cp": 8,
+      "file_output": "file\\MercadoLivre.xlsx"
+    },
+    {
+      "name": "Shopee",
+      "sheet": "Sheet1",
+      "cn": 2,
+      "sku": 5,
+      "ce": 9,
+      "cp": 7,
+      "file_output": "file\\Shopee.xlsx"
+    },
+    {
+      "name": "Via",
+      "sheet": "PRECO_ESTOQUE_STATUS_PREPARO",
+      "ce": 4,
+      "cp": 2,
+      "sku": 1,
+      "cn": null,
+      "file_output": "file\\Via.xlsx"
+    }
+  ]
+}

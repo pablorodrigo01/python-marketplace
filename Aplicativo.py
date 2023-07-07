@@ -4,16 +4,7 @@ import customtkinter as ctk
 import pandas as pd
 import json
 import datetime
-import subprocess
 from openpyxl import load_workbook
-
-# Função para chamar o arquivo web.py
-def download():
-    try:
-        subprocess.call(["python", "web.py"])
-    except Exception as e:
-        # Mostra uma mensagem de erro
-        messagebox.showerror("Erro", str(e))
 
 # Função para ler o arquivo de configuração
 def read_config(file_path):
@@ -57,7 +48,6 @@ def update_all():
         for config in platform_configs:
             platform = config['name']
             sheet_name = config['sheet']
-            cn_col = config['cn']
             ce_col = config['ce']
             sku_col = config['sku']
             cp_col = config['cp']
@@ -83,19 +73,16 @@ def update_all():
                 for sku in skus_not_in_input:
                     generate_log(platform, sku)
 
+            # Itera sobre as linhas do arquivo de entrada
             for _, row in df.iterrows():
                 sku = row['Codigo']
-                nome = row['Nome']
                 preco = row['Custo']
                 estoque = row['Estoque']
 
                 if platform == 'Mercado Livre' or platform == 'Shopee':
                     for i in range(4, sheet.max_row + 1):
                         sku_dest = sheet.cell(row=i, column=sku_col).value
-                        if sku_dest == sku:
-                            sheet.cell(row=i, column=cn_col).value = nome
-                            titulo = sheet.cell(row=i, column=cn_col ).value
-                            if titulo == nome:
+                        if str(sku_dest) == str(sku):
                                 sheet.cell(row=i, column=ce_col).value = estoque
                                 sheet.cell(row=i, column=cp_col).value = preco
                                 if platform == 'Mercado Livre':
@@ -104,17 +91,10 @@ def update_all():
                 if platform == 'Via':
                     for i in range(4, sheet.max_row + 1):
                         sku_dest = sheet.cell(row=i, column=sku_col).value
-                        if sku_dest == sku:
+                        if str(sku_dest) == str(sku):
                             sheet.cell(row=i, column=ce_col).value = estoque
                             sheet.cell(row=i, column=cp_col).value = preco
                             sheet.cell(row=i, column=3).value = preco
-
-                if platform == 'Magalu':
-                    for j in range(4, sheet.max_row + 1):
-                        titulo = sheet.cell(row=j, column=cn_col).value
-                        if titulo == nome:
-                            sheet.cell(row=j, column=ce_col).value = estoque
-                            sheet.cell(row=j, column=cp_col).value = preco
 
             # Salva as alterações no arquivo de destino
             book.save(file_output)
@@ -167,16 +147,12 @@ file_input_frame.grid(row=2, column=1, padx=10, pady=10)
 file_input = ctk.CTkEntry(file_input_frame, width=200, font=("Myriad Pro", 16))
 file_input.grid(row=0, column=0)
 
-browse_input_button = ctk.CTkButton(file_input_frame, text="Procurar", font=("Myriad Pro", 16), command=lambda: [file_input.delete(0, tk.END), file_input.insert(tk.END, filedialog.askopenfilename())])
+browse_input_button = ctk.CTkButton(file_input_frame, text="Procurar", font=("Myriad Pro", 16), command=lambda: file_input.insert(tk.END, filedialog.askopenfilename()))
 browse_input_button.grid(row=0, column=1, padx=10)
 
 # Botão para atualizar o arquivo em todas as plataformas
 update_button = ctk.CTkButton(content_frame, text="Atualizar Arquivo", font=("Myriad Pro", 16), command=update_all)
 update_button.grid(row=4, column=0, columnspan=2, pady=10)
-
-# Botão para download da planilha
-download_planilha_button = ctk.CTkButton(content_frame, text="Download Planilha", font=("Myriad Pro", 16), command=download)
-download_planilha_button.grid(row=6, column=0, columnspan=2, pady=10)
 
 # Inicia o loop principal da interface gráfica
 app.mainloop()

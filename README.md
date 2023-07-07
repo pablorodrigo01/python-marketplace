@@ -1,6 +1,6 @@
 # Reman Aplicativo - Marketplace
 
-O Reman Aplicativo - Marketplace é uma ferramenta desenvolvida para facilitar a atualização de tabelas em diferentes plataformas de e-commerce. Com este aplicativo, é possível atualizar automaticamente as informações de estoque e preço de produtos em plataformas como Mercado Livre, Shopee e Magalu, e pode ser facilmente estendido para suportar outras plataformas no futuro.
+O Reman Aplicativo - Marketplace é uma ferramenta desenvolvida para facilitar a atualização de tabelas em diferentes plataformas de e-commerce. Com este aplicativo, é possível atualizar automaticamente as informações de estoque e preço de produtos em plataformas como Mercado Livre, Shopee e Via Marketplace (Casas Bahia, Pontofrio e Extra), e pode ser facilmente estendido para suportar outras plataformas no futuro.
 
 ## Funcionamento
 
@@ -11,19 +11,27 @@ Ao clicar no botão, o aplicativo lê o arquivo de entrada e extrai as informaç
 O aplicativo suporta as seguintes plataformas atualmente:
 - Mercado Livre
 - Shopee
-- Magalu
 - Via Marketplace (Casas Bahia, Pontofrio e Extra)
 
 No entanto, é possível adicionar suporte a outras plataformas facilmente. Agora, a configuração das plataformas é feita no arquivo config.json. No arquivo config.json, você pode adicionar uma nova configuração para a plataforma desejada, incluindo o nome da plataforma, o nome da planilha, as colunas correspondentes ao nome do produto, estoque e preço, e o caminho do arquivo de saída da plataforma. Dessa forma, você pode estender facilmente o suporte a novas plataformas sem precisar modificar diretamente o código-fonte.
 
-## Planejamento de Melhoras
+## Planejamento de Melhorias
 
 - [x] Sistema de Log
 - [x] Configuração para outras lojas
 - [ ] Implementação do Selenium
 - [ ] Versão Web
 
+## Implementação do Selenium e Versão Web
+
+A implementação do Selenium não foi continuada devido à dificuldade de realizar a automatização por meio de um executável. No entanto, o aplicativo continua a ser executado com sucesso por meio da interface gráfica construída com a biblioteca Tkinter.
+
+Quanto à versão web, ela ainda não foi desenvolvida, uma vez que a versão atual do aplicativo já atende às necessidades dos usuários. Caso haja demanda por uma versão web no futuro, podemos considerar sua implementação.
+
 ## Melhorias Recentes
+
+### 1.2 - 07/07/2023
+- A plataforma Magalu foi removida da configuração devido à indisponibilidade do serviço de atualização por planilha oferecido pela plataforma.
 
 ### 1.1 - 07/06/2023
 - Adicionado sistema de log para mostrar produtos que não foram atualizados corretamente.
