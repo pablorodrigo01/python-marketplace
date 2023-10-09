@@ -37,11 +37,11 @@ Quanto à versão web, ela ainda não foi desenvolvida, uma vez que a versão at
 - Adicionado sistema de log para mostrar produtos que não foram atualizados corretamente.
 - A configuração das lojas agora é feita por meio de arquivos .json, proporcionando uma maneira mais flexível e fácil de adicionar novas plataformas.
 
+![Exemplo do arquivo de log](https://i.imgur.com/7yX76c0.png)
+
 ### 1.1 - 09/10/2023
 - A plataforma Via foi removida da configuração devido à indisponibilidade do serviço de atualização por planilha oferecido pela plataforma.
 - A plataforma Amazon foi adicionada na configuração.
-
-![Exemplo do arquivo de log](https://i.imgur.com/7yX76c0.png)
 
 Essas são apenas algumas das melhorias recentes feitas no projeto. Continuamos trabalhando para aprimorar o aplicativo e fornecer uma experiência cada vez melhor aos usuários.
 
