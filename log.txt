@@ -1,5 +1,0 @@
-[2023-07-05 11:29:11] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 96
-[2023-07-05 11:29:11] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 3051
-[2023-07-05 11:29:11] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 392/1238-6
-[2023-07-05 11:29:11] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 516 562
-[2023-07-05 11:29:11] SKU não encontrado na tabela de entrada - Plataforma: Mercado Livre, SKU: 1501

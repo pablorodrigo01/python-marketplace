@@ -3,29 +3,29 @@
     {
       "name": "Mercado Livre",
       "sheet": "Anúncios",
-      "cn": 4,
+      "n": 4,
       "sku": 3,
-      "ce": 6,
-      "cp": 8,
+      "e": 6,
+      "p": 8,
       "file_output": "file\\MercadoLivre.xlsx"
     },
     {
       "name": "Shopee",
       "sheet": "Sheet1",
-      "cn": 2,
+      "n": 2,
       "sku": 5,
-      "ce": 9,
-      "cp": 7,
+      "e": 9,
+      "p": 7,
       "file_output": "file\\Shopee.xlsx"
     },
     {
-      "name": "Via",
-      "sheet": "PRECO_ESTOQUE_STATUS_PREPARO",
-      "ce": 4,
-      "cp": 2,
+      "name": "Amazon",
+      "sheet": "Modelo",
+      "e": 5,
+      "p": 2,
       "sku": 1,
-      "cn": null,
-      "file_output": "file\\Via.xlsx"
+      "n": null,
+      "file_output": "file\\Flat.File.PriceInventory.br.xlsx"
     }
   ]
 }
